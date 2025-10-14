@@ -75,6 +75,22 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
 
     # Add user defined libraries
 )
+
+# 添加生成可下载到单片机的文件格式规则
+add_custom_command(
+    TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_OBJCOPY} -O ihex ${CMAKE_PROJECT_NAME}.elf ${CMAKE_PROJECT_NAME}.hex
+    COMMAND ${CMAKE_OBJCOPY} -O binary ${CMAKE_PROJECT_NAME}.elf ${CMAKE_PROJECT_NAME}.bin
+    COMMENT "生成可下载文件: ${CMAKE_PROJECT_NAME}.hex 和 ${CMAKE_PROJECT_NAME}.bin"
+)
+
+# 显示构建后的文件大小信息
+add_custom_command(
+    TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_SIZE} ${CMAKE_PROJECT_NAME}.elf
+    COMMENT "显示固件大小信息"
+)
+
 # Add sources
 set(SOURCES
     ${STARTUP_FILE} 

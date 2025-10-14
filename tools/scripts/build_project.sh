@@ -23,7 +23,7 @@ mkdir -p ${BUILD_DIR}
 cd ${BUILD_DIR}
 
 # 配置CMake - 使用正确的工具链文件路径
-cmake -G "Unix Makefiles" \
+cmake -G "Ninja" \
     -DCMAKE_BUILD_TYPE=Debug \
     -DCMAKE_TOOLCHAIN_FILE=${PROJECT_ROOT}/cmake/gcc-arm-none-eabi.cmake \
     -DTHREADX_ROOT=/opt/threadx \
