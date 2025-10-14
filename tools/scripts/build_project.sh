@@ -32,7 +32,7 @@ cmake -G "Ninja" \
     ${PROJECT_ROOT}
 
 # 构建项目
-make -j$(nproc)
+ninja
 
 if [ $? -eq 0 ]; then
     echo "构建成功!"
