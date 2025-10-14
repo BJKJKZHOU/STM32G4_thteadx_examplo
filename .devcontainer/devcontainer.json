@@ -27,14 +27,21 @@
                     "*.cpp": "cpp",
                     "threadx.h": "c",
                     "tx_api.h": "c"
-                }
+                },
+                // 新增的 CMake 禁用自动配置选项
+                "cmake.autoConfigure": false,
+                "cmake.autoBuild": false,
+                "cmake.configureOnOpen": false,
+                "cmake.ignoreCMakeListsMissing": true,
+                "cmake.autoSelectActiveFolder": false,
+                "cmake.allowParallelBuild": true,
+                // 确保扩展只在远程激活
+                "extensions.experimental.activateExtensionsOnRemote": true
             },
             "extensions": [
                 "ms-vscode.cpptools",
                 "ms-vscode.cmake-tools",
                 "marus25.cortex-debug",
-                "ms-vscode.makefile-tools",
-                "twxs.cmake",
                 "ms-vscode.hexeditor",
                 "wayou.vscode-todo-highlight",
                 "gruntfuggly.todo-tree",
