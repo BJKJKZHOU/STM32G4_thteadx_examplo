@@ -75,3 +75,20 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
 
     # Add user defined libraries
 )
+# Add sources
+set(SOURCES
+    ${STARTUP_FILE} 
+    ${SYSTEM_FILE}
+    Core/Src/main.c
+    Core/Src/stm32g4xx_hal_msp.c
+    Core/Src/stm32g4xx_it.c
+    Core/Src/stm32g4xx_hal_timebase_tim.c
+    Core/Src/syscalls.c
+    Core/Src/sysmem.c
+    Core/Src/gpio.c
+    Core/Src/dma.c
+    Core/Src/usart.c
+    Core/Src/tim.c
+    Core/Src/cordic.c
+    Core/Src/ccmram.c  # Add CCMRAM support
+)

@@ -27,7 +27,12 @@ extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
+#include <stdio.h>
+#include <stdint.h>
+#include <string.h>
+
 #include "stm32g4xx_hal.h"
+#include "ccmram.h"  // Add CCMRAM support
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
