@@ -36,7 +36,13 @@
                 "cmake.autoSelectActiveFolder": false,
                 "cmake.allowParallelBuild": true,
                 // 确保扩展只在远程激活
-                "extensions.experimental.activateExtensionsOnRemote": true
+                "extensions.experimental.activateExtensionsOnRemote": true,
+                // 指定C/C++扩展只在远程激活
+                "remote.extensionKind": {
+                    "ms-vscode.cpptools": [
+                        "workspace"
+                    ]
+                }
             },
             "extensions": [
                 "ms-vscode.cpptools",
