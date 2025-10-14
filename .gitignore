@@ -49,3 +49,6 @@ Makefile
 # 系统文件
 .DS_Store
 Thumbs.db
+
+# 排除Drivers文件夹（STM32 HAL库文件，不需要版本控制）
+Drivers/

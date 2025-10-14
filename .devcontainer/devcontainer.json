@@ -1,0 +1,50 @@
+{
+    "name": "STM32G4 ThreadX Motor Control",
+    "image": "zhouhengai/stm32g4-motor-dev:latest",
+    "runArgs": [
+        "--privileged",
+        "--device=/dev/bus/usb:/dev/bus/usb",
+        "--device=/dev/ttyUSB0:/dev/ttyUSB0",
+        "--cap-add=SYS_PTRACE",
+        "--security-opt",
+        "seccomp=unconfined"
+    ],
+    "mounts": [
+        "source=/dev,target=/dev,type=bind",
+        "source=${localEnv:HOME}/.vscode,target=/home/developer/.vscode,type=bind"
+    ],
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "cmake.generator": "Unix Makefiles",
+                "cmake.buildDirectory": "${workspaceFolder}/build",
+                "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+                "C_Cpp.default.compileCommands": "${workspaceFolder}/build/compile_commands.json",
+                "editor.formatOnSave": true,
+                "files.associations": {
+                    "*.h": "c",
+                    "*.c": "c",
+                    "*.cpp": "cpp",
+                    "threadx.h": "c",
+                    "tx_api.h": "c"
+                }
+            },
+            "extensions": [
+                "ms-vscode.cpptools",
+                "ms-vscode.cmake-tools",
+                "marus25.cortex-debug",
+                "ms-vscode.makefile-tools",
+                "twxs.cmake",
+                "ms-vscode.hexeditor",
+                "wayou.vscode-todo-highlight",
+                "gruntfuggly.todo-tree",
+                "marscode.marscode-extension"
+            ]
+        }
+    },
+    "remoteUser": "developer",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
+    "workspaceFolder": "/workspace",
+    "postCreateCommand": "chown -R developer:developer /workspace && chmod +x /workspace/tools/scripts/*.sh && /workspace/tools/scripts/setup_env.sh",
+    "postStartCommand": "echo 'STM32G4开发环境就绪'"
+}
