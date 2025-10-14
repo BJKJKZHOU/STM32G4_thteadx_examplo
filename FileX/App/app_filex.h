@@ -1,12 +1,14 @@
+
 /* USER CODE BEGIN Header */
 /**
   ******************************************************************************
-  * @file    stm32g4xx_it.h
-  * @brief   This file contains the headers of the interrupt handlers.
+  * @file    app_filex.h
+  * @author  MCD Application Team
+  * @brief   FileX applicative header file
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2025 STMicroelectronics.
+  * Copyright (c) 2020-2021 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -16,14 +18,16 @@
   ******************************************************************************
   */
 /* USER CODE END Header */
-
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __STM32G4xx_IT_H
-#define __STM32G4xx_IT_H
+#ifndef __APP_FILEX_H__
+#define __APP_FILEX_H__
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
+
+/* Includes ------------------------------------------------------------------*/
+#include "fx_api.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -46,22 +50,40 @@
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/
-void NMI_Handler(void);
-void HardFault_Handler(void);
-void MemManage_Handler(void);
-void BusFault_Handler(void);
-void UsageFault_Handler(void);
-void DebugMon_Handler(void);
-void DMA1_Channel1_IRQHandler(void);
-void DMA1_Channel2_IRQHandler(void);
-void TIM6_DAC_IRQHandler(void);
-void LPUART1_IRQHandler(void);
+UINT MX_FileX_Init(VOID *memory_ptr);
 /* USER CODE BEGIN EFP */
 
 /* USER CODE END EFP */
 
+/* Private defines -----------------------------------------------------------*/
+/* Main thread Name */
+#ifndef FX_APP_THREAD_NAME
+  #define FX_APP_THREAD_NAME "FileX app thread"
+#endif
+
+/* Main thread time slice */
+#ifndef FX_APP_THREAD_TIME_SLICE
+  #define FX_APP_THREAD_TIME_SLICE TX_NO_TIME_SLICE
+#endif
+
+/* Main thread auto start */
+#ifndef FX_APP_THREAD_AUTO_START
+  #define FX_APP_THREAD_AUTO_START TX_AUTO_START
+#endif
+
+/* Main thread preemption threshold */
+#ifndef FX_APP_PREEMPTION_THRESHOLD
+  #define FX_APP_PREEMPTION_THRESHOLD FX_APP_THREAD_PRIO
+#endif
+
+/* USER CODE BEGIN PD */
+
+/* USER CODE END PD */
+
+/* USER CODE BEGIN 1 */
+
+/* USER CODE END 1 */
 #ifdef __cplusplus
 }
 #endif
-
-#endif /* __STM32G4xx_IT_H */
+#endif /* __APP_FILEX_H__ */

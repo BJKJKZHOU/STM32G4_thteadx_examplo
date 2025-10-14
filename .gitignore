@@ -52,3 +52,6 @@ Thumbs.db
 
 # 排除Drivers文件夹（STM32 HAL库文件，不需要版本控制）
 Drivers/
+
+# 第三方中间件库
+Middlewares/

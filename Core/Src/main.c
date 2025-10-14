@@ -17,6 +17,7 @@
   */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
+#include "app_threadx.h"
 #include "main.h"
 #include "cordic.h"
 #include "dma.h"
@@ -45,8 +46,6 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
-CCMRAM_SECTION uint32_t ccmram_buffer[1024];  // 4KB buffer in CCMRAM
-CCMRAM_SECTION volatile uint32_t ccmram_counter = 0;
 
 /* USER CODE BEGIN PV */
 
@@ -97,23 +96,13 @@ int main(void)
   MX_LPUART1_UART_Init();
   MX_CORDIC_Init();
   MX_TIM2_Init();
-  /* Demonstrate CCMRAM usage */
-  CCMRAM_Example();
-  
-  /* Verify CCMRAM usage */
-  printf("CCMRAM Verification:\r\n");
-  printf("  Buffer address: 0x%08lX (should be in CCMRAM range)\r\n", (uint32_t)ccmram_buffer);
-  printf("  Counter address: 0x%08lX (should be in CCMRAM range)\r\n", (uint32_t)&ccmram_counter);
-  printf("  CCMRAM range: 0x%08lX - 0x%08lX\r\n", CCMRAM_BASE, CCMRAM_END);
-  
-  /* Check if variables are actually in CCMRAM */
-  if ((uint32_t)ccmram_buffer >= CCMRAM_BASE && (uint32_t)ccmram_buffer <= CCMRAM_END) {
-      printf("  CCMRAM buffer is correctly placed in CCMRAM\r\n");
-  } else {
-      printf("  WARNING: CCMRAM buffer is NOT in CCMRAM!\r\n");
-  }
+  /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
+
+  MX_ThreadX_Init();
+
+  /* We should never get here as control is now taken by the scheduler */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
@@ -228,22 +217,3 @@ void assert_failed(uint8_t *file, uint32_t line)
   /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
-
-/**
-  * @brief  Example function demonstrating CCMRAM usage
-  * @param  None
-  * @retval None
-  */
-static void CCMRAM_Example(void)
-{
-    /* Use CCMRAM buffer for fast access */
-    for (uint32_t i = 0; i < 1024; i++) {
-        ccmram_buffer[i] = i;
-    }
-    
-    /* Increment CCMRAM counter */
-    ccmram_counter++;
-    
-    printf("CCMRAM Example: Buffer[0] = %lu, Counter = %lu\r\n", 
-           ccmram_buffer[0], ccmram_counter);
-}
