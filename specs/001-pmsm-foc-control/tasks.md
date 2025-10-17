@@ -34,14 +34,19 @@ description: "PMSM FOC控制系统实现的任务列表"
 - Paths shown below follow STM32 project structure based on plan.md
 - 以下路径遵循基于 plan.md 的 STM32 项目结构
 
+## 线程创建和配置位置
+- **主线程创建**：在 app_threadx.c 的 App_ThreadX_Init() 函数中
+- **系统初始化**：在 main.c 中进行硬件的初始化和调用 MX_ThreadX_Init() 启动调度器
+- **电机控制相关线程**：应在 app_threadx.c 或专门的线程管理文件中创建
+
 ## Phase 1: Setup (Shared Infrastructure)
 ## 阶段 1: 设置（共享基础设施）
 
 **Purpose**: Project initialization and basic structure
 **目的**: 项目初始化和基本结构
 
-- [ ] T001 Create project structure per implementation plan with STM32 HAL/LL dependencies
-- [ ] T001 根据实现计划创建项目结构，包含 STM32 HAL/LL 依赖项
+- [x] T001 Create project structure per implementation plan with STM32 HAL/LL dependencies
+- [x] T001 根据实现计划创建项目结构，包含 STM32 HAL/LL 依赖项
 - [ ] T002 Initialize STM32G474xx project with CMSIS and HAL drivers
 - [ ] T002 使用 CMSIS 和 HAL 驱动程序初始化 STM32G474xx 项目
 - [ ] T003 [P] Configure embedded development tools and timing analysis tools
@@ -84,8 +89,8 @@ description: "PMSM FOC控制系统实现的任务列表"
 - [ ] T015 [P] 在 Core/Utils/pid_controller.h 和 Core/Utils/pid_controller.c 中初始化 PID 控制器工具
 - [ ] T016 [P] Implement coordinate transform utilities (Clarke/Park) in Core/Utils/clarke_park_transforms.h and Core/Utils/clarke_park_transforms.c
 - [ ] T016 [P] 在 Core/Utils/clarke_park_transforms.h 和 Core/Utils/clarke_park_transforms.c 中实现坐标变换工具（Clarke/Park）
-- [ ] T017 Configure ThreadX RTOS tasks and priorities for motor control
-- [ ] T017 为电机控制配置 ThreadX RTOS 任务和优先级
+- [ ] T017 Configure ThreadX RTOS tasks and priorities in Core/Src/app_threadx.c
+- [ ] T017 在 Core/Src/app_threadx.c 中配置 ThreadX RTOS 任务和优先级
 - [ ] T018 Set up communication interface drivers (CAN/UART) in Core/Inc/communication.h
 - [ ] T018 在 Core/Inc/communication.h 中设置通信接口驱动程序（CAN/UART）
 - [ ] T019 [P] Configure Matlab/Simulink integration for algorithm validation
@@ -137,8 +142,8 @@ description: "PMSM FOC控制系统实现的任务列表"
 - [ ] T028 [US1] 在 Core/Src/motor_control.c 中实现电机启动/停止控制功能
 - [ ] T029 [US1] Implement speed control loop with PID in Core/Src/speed_control.c
 - [ ] T029 [US1] 在 Core/Src/speed_control.c 中使用 PID 实现速度控制循环
-- [ ] T030 [US1] Integrate ThreadX task for basic motor control in Core/Src/main.c
-- [ ] T030 [US1] 在 Core/Src/main.c 中集成用于基础电机控制的 ThreadX 任务
+- [ ] T030 [US1] Integrate a ThreadX task for basic motor control in Core/Src/app_threadx.c
+- [ ] T030 [US1] 在 Core/Src/app_threadx.c 中集成用于基础电机控制的 ThreadX 任务
 - [ ] T031 [US1] Implement basic current sensing and ADC handling in Core/Src/adc_handler.c
 - [ ] T031 [US1] 在 Core/Src/adc_handler.c 中实现基础电流检测和 ADC 处理
 - [ ] T032 [US1] Add basic communication commands (START/STOP/SPEED) in Core/Src/communication.c
@@ -181,8 +186,8 @@ description: "PMSM FOC控制系统实现的任务列表"
 - [ ] T039 [US2] 在 Core/Src/foc_control.c 中将 FOC 算法与位置和电流控制集成
 - [ ] T040 [US2] Implement position sensing and processing in Core/Src/encoder.c
 - [ ] T040 [US2] 在 Core/Src/encoder.c 中实现位置检测与处理
-- [ ] T041 [US2] Update ThreadX tasks for advanced control in Core/Src/main.c
-- [ ] T041 [US2] 在 Core/Src/main.c 中更新用于高级控制的 ThreadX 任务
+- [ ] T041 [US2] Update the ThreadX task for advanced control in Core/Src/app_threadx.c
+- [ ] T041 [US2] 在 Core/Src/app_threadx.c 中更新用于高级控制的 ThreadX 任务  
 - [ ] T042 [US2] Add position and current control commands to communication interface in Core/Src/communication.c
 - [ ] T042 [US2] 在 Core/Src/communication.c 中向通信接口添加位置和电流控制命令
 
@@ -221,8 +226,8 @@ description: "PMSM FOC控制系统实现的任务列表"
 - [ ] T048 [US3] 在 Core/Src/communication.c 中创建通信命令处理器
 - [ ] T049 [US3] Implement status frame generation for CAN in Core/Src/communication.c
 - [ ] T049 [US3] 在 Core/Src/communication.c 中为 CAN 实现状态帧生成
-- [ ] T050 [US3] Integrate communication tasks with ThreadX in Core/Src/main.c
-- [ ] T050 [US3] 在 Core/Src/main.c 中将通信任务与 ThreadX 集成
+- [ ] T050 [US3] Integrate ThreadX tasks for communication and monitoring in Core/Src/app_threadx.c
+- [ ] T050 [US3] 在 Core/Src/app_threadx.c 中集成用于通信和监控的 ThreadX 任务
 - [ ] T051 [US3] Add configuration commands to communication interface in Core/Src/communication.c
 - [ ] T051 [US3] 在 Core/Src/communication.c 中向通信接口添加配置命令
 - [ ] T052 [US3] Implement parameter storage and retrieval in Core/Src/motor_parameters.c

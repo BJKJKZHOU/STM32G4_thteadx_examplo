@@ -48,6 +48,7 @@ extern "C" {
 #define TX_APP_THREAD_PRIO                      10
 /* USER CODE BEGIN PD */
 
+
 /* USER CODE END PD */
 
 /* Main thread defines -------------------------------------------------------*/
@@ -76,6 +77,7 @@ UINT App_ThreadX_Init(VOID *memory_ptr);
 void MX_ThreadX_Init(void);
 void tx_app_thread_entry(ULONG thread_input);
 /* USER CODE BEGIN EFP */
+
 
 /* USER CODE END EFP */
 

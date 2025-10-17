@@ -22,15 +22,15 @@
 
 ## [Category 1]
 
-- [ ] CHK001 First checklist item with clear action
-- [ ] CHK002 Second checklist item
-- [ ] CHK003 Third checklist item
+- [x] CHK001 First checklist item with clear action
+- [x] CHK002 Second checklist item
+- [x] CHK003 Third checklist item
 
 ## [Category 2]
 
-- [ ] CHK004 Another category item
-- [ ] CHK005 Item with specific criteria
-- [ ] CHK006 Final item in this category
+- [x] CHK004 Another category item
+- [x] CHK005 Item with specific criteria
+- [x] CHK006 Final item in this category
 
 ## Notes
 

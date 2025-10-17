@@ -74,15 +74,14 @@ Core/
 │   ├── encoder.c              # Encoder feedback implementation
 │   ├── adc_handler.c          # ADC sampling for current sensing
 │   └── timer_handler.c        # Timer handling for control loops
-├── Startup/               # Startup files
-│   └── startup_stm32g474xx.s
-└── Utils/                 # Utility functions
-    ├── pid_controller.h
-    ├── pid_controller.c
-    ├── clarke_park_transforms.h
-    ├── clarke_park_transforms.c
-    ├── coordinate_transforms.h
-    └── coordinate_transforms.c
+│── Utils/                 # Utility functions
+│    ├── pid_controller.h
+│    ├── pid_controller.c
+│    ├── clarke_park_transforms.h
+│    ├── clarke_park_transforms.c
+│    ├── coordinate_transforms.h
+│    └── coordinate_transforms.c
+├── startup_stm32g474xx.s
 
 Drivers/
 ├── STM32G4xx_HAL_Driver/    # STM32 HAL drivers
@@ -134,6 +133,35 @@ tests/
 CMSIS/
 └── DSP/                       # CMSIS DSP library for mathematical operations
 ```
+
+### 文件路径
+```
+AZURE_RTOS/App/app_azure_rtos_config.h
+AZURE_RTOS/App/app_azure_rtos.c
+AZURE_RTOS/App/app_azure_rtos.h
+
+cmake/stm32cubemx/CMakeLists.txt
+cmake/gcc-arm-none-eabi.cmake
+
+configs
+
+Core/Inc
+Core/Src
+
+Drivers/CMSIS
+Drivers/STM32G4xx_HAL_Driver
+
+Middlewares/ST/threadx
+Middlewares/ST/filex
+Middlewares/ST/usbx
+
+tools/scripts/build_project.sh
+tools/scripts/setup_env.sh
+
+USBX/App/ux_user.h
+
+```
+
 
 **Structure Decision**: The structure follows STM32 HAL conventions with clear separation between motor control algorithms, communication interfaces, safety mechanisms, and hardware abstraction. The RTOS (ThreadX) will manage real-time tasks with appropriate priority levels for control loops, communication, and safety monitoring.
 
