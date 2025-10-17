@@ -5,15 +5,15 @@
 Before starting development with the PMSM FOC Control System, ensure you have the following tools and hardware:
 
 ### Development Environment
-- STM32CubeMX 6.7.0 or later
-- STM32CubeCLT (STM32CubeIDE command-line tools)
-- GCC ARM Embedded Toolchain (10.3-2021.10 or later)
+- STM32CubeMX 6.12.0 or later
+- STM32CubeCLT (CLion/VScode/STM32CubeIDE command-line tools)
+- GCC ARM Embedded Toolchain 
 - CMake 3.21 or later
 - Eclipse ThreadX RTOS package
 - Git for version control
 
 ### Hardware Requirements
-- STM32G474E-EVAL or custom board with STM32G474xx microcontroller
+- STM32G474RET6  or custom board with STM32G474xx microcontroller
 - PMSM motor with encoder feedback
 - 3-phase motor driver (e.g., IXXAT USB-to-CAN or compatible)
 - Power supply appropriate for your motor (typically 12-48V)
