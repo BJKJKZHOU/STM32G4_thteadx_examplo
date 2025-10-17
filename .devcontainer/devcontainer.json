@@ -27,21 +27,6 @@
                     "*.cpp": "cpp",
                     "threadx.h": "c",
                     "tx_api.h": "c"
-                },
-                // 新增的 CMake 禁用自动配置选项
-                "cmake.autoConfigure": false,
-                "cmake.autoBuild": false,
-                "cmake.configureOnOpen": false,
-                "cmake.ignoreCMakeListsMissing": true,
-                "cmake.autoSelectActiveFolder": false,
-                "cmake.allowParallelBuild": true,
-                // 确保扩展只在远程激活
-                "extensions.experimental.activateExtensionsOnRemote": true,
-                // 指定C/C++扩展只在远程激活
-                "remote.extensionKind": {
-                    "ms-vscode.cpptools": [
-                        "workspace"
-                    ]
                 }
             },
             "extensions": [
@@ -50,14 +35,12 @@
                 "marus25.cortex-debug",
                 "ms-vscode.hexeditor",
                 "wayou.vscode-todo-highlight",
-                "gruntfuggly.todo-tree",
-                "marscode.marscode-extension"
+                "gruntfuggly.todo-tree"
             ]
         }
     },
     "remoteUser": "developer",
     "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
     "workspaceFolder": "/workspace",
-    "postCreateCommand": "chown -R developer:developer /workspace && chmod +x /workspace/tools/scripts/*.sh && /workspace/tools/scripts/setup_env.sh",
-    "postStartCommand": "echo 'STM32G4开发环境就绪'"
+    "postCreateCommand": "chown -R developer:developer /workspace && chmod +x /workspace/tools/scripts/*.sh && /workspace/tools/scripts/setup_env.sh"
 }
