@@ -17,21 +17,25 @@
   the iteration process.
 -->
 
-**Language/Version**: [e.g., Python 3.11, Swift 5.9, Rust 1.75 or NEEDS CLARIFICATION]  
-**Primary Dependencies**: [e.g., FastAPI, UIKit, LLVM or NEEDS CLARIFICATION]  
-**Storage**: [if applicable, e.g., PostgreSQL, CoreData, files or N/A]  
-**Testing**: [e.g., pytest, XCTest, cargo test or NEEDS CLARIFICATION]  
-**Target Platform**: [e.g., Linux server, iOS 15+, WASM or NEEDS CLARIFICATION]
-**Project Type**: [single/web/mobile - determines source structure]  
-**Performance Goals**: [domain-specific, e.g., 1000 req/s, 10k lines/sec, 60 fps or NEEDS CLARIFICATION]  
-**Constraints**: [domain-specific, e.g., <200ms p95, <100MB memory, offline-capable or NEEDS CLARIFICATION]  
-**Scale/Scope**: [domain-specific, e.g., 10k users, 1M LOC, 50 screens or NEEDS CLARIFICATION]
+**Language/Version**: C for STM32 embedded development, GCC toolchain  
+**Primary Dependencies**: STM32 HAL/LL drivers, CMSIS, FreeRTOS (if applicable)  
+**Storage**: [if applicable, e.g., external flash, EEPROM or N/A]  
+**Testing**: Unit tests with embedded test framework, hardware-in-the-loop testing  
+**Target Platform**: STM32G474xx microcontroller  
+**Project Type**: Embedded real-time motor control system  
+**Performance Goals**: [domain-specific, e.g., FOC control loop <100μs, ADC sampling rate 10kHz, motor response time <10ms or NEEDS CLARIFICATION]  
+**Constraints**: Memory usage <80% of available RAM/Flash, Real-time timing compliance, Safety-critical operation  
+**Scale/Scope**: [domain-specific, e.g., PMSM motor control, 3-phase inverter control, encoder/sensor interfaces or NEEDS CLARIFICATION]
 
 ## Constitution Check
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+* Verify all timing-critical functions meet specified timing constraints
+* Confirm error handling and fault detection mechanisms are planned
+* Validate hardware constraint compliance (memory, processing power, peripheral usage)
+* Ensure safety-critical code will undergo appropriate testing and validation
+* Verify motor control protection mechanisms (overcurrent, overtemperature, overvoltage) are included
 
 ## Project Structure
 
@@ -56,39 +60,36 @@ specs/[###-feature]/
 -->
 
 ```
-# [REMOVE IF UNUSED] Option 1: Single project (DEFAULT)
-src/
-├── models/
-├── services/
-├── cli/
-└── lib/
+# STM32 PMSM FOC Motor Control Structure
+Core/
+├── Inc/                 # Header files
+│   ├── main.h
+│   ├── stm32g4xx_hal_conf.h
+│   └── [feature-specific headers]
+├── Src/                 # Source files
+│   ├── main.c
+│   ├── stm32g4xx_it.c
+│   └── [feature-specific source files]
+├── Startup/             # Startup files
+│   └── startup_stm32g474xx.s
+└── Utils/               # Utility functions
+    └── [motor control utilities]
+
+Drivers/
+├── STM32G4xx_HAL_Driver/
+└── CMSIS/
+
+Middlewares/
+├── Third_Party/         # Third-party components (if any)
+└── ST/                  # ST-specific components
+
+configs/
+└── [configuration files for motor parameters, timing settings, etc.]
 
 tests/
-├── contract/
-├── integration/
-└── unit/
-
-# [REMOVE IF UNUSED] Option 2: Web application (when "frontend" + "backend" detected)
-backend/
-├── src/
-│   ├── models/
-│   ├── services/
-│   └── api/
-└── tests/
-
-frontend/
-├── src/
-│   ├── components/
-│   ├── pages/
-│   └── services/
-└── tests/
-
-# [REMOVE IF UNUSED] Option 3: Mobile + API (when "iOS/Android" detected)
-api/
-└── [same as backend above]
-
-ios/ or android/
-└── [platform-specific structure: feature modules, UI flows, platform tests]
+├── unit/                # Unit tests for algorithms
+├── integration/         # Integration tests with hardware
+└── system/              # System-level tests for safety and performance
 ```
 
 **Structure Decision**: [Document the selected structure and reference the real
@@ -100,6 +101,6 @@ directories captured above]
 
 | Violation | Why Needed | Simpler Alternative Rejected Because |
 |-----------|------------|-------------------------------------|
-| [e.g., 4th project] | [current need] | [why 3 projects insufficient] |
-| [e.g., Repository pattern] | [specific problem] | [why direct DB access insufficient] |
+| [e.g., complex FOC algorithm] | [real-time control requirements] | [simpler control methods insufficient for PMSM] |
+| [e.g., hardware-specific optimizations] | [performance requirements] | [generic code doesn't meet timing constraints] |
 

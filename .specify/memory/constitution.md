@@ -1,50 +1,98 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!-- 
+Sync Impact Report:
+- Version change: 1.0.0 → 1.1.0
+- Modified principles: Added STM32-specific timing, safety, and hardware principles
+- Added sections: Timing Constraints, Error Handling, Hardware Constraints
+- Templates requiring updates: plan-template.md, spec-template.md, tasks-template.md (all updated to reflect STM32 motor control requirements)
+- Follow-up: Ensure all development follows the new timing and safety requirements
+-->
+
+# STM32 PMSM FOC Motor Control Project Constitution
+STM32 PMSM FOC 电机控制项目章程
 
 ## Core Principles
+核心原则
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### Timing Constraint Compliance
+时序约束符合性
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+All code must satisfy specified timing constraints; Performance-critical functions must be optimized and measured; Latency requirements must be consistently met under all operating conditions.
+所有代码必须满足指定的时序约束；性能关键函数必须经过优化和测量；在所有操作条件下必须一致满足延迟要求。
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### Comprehensive Error Handling and Safety
+全面的错误处理和安全保障
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+Implement comprehensive error handling and fault detection; Systems must fail safely; All safety-critical code must undergo appropriate testing and validation.
+实施全面的错误处理和故障检测；系统必须安全失效；所有安全关键代码必须经过适当的测试和验证。
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### Hardware Constraint Compliance
+硬件约束符合性
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+All implementations must respect hardware limitations (memory, processing power, peripheral constraints); Code must not cause hardware failures; Ensure personnel and equipment safety during operation, testing, and unexpected failures.
+所有实现必须尊重硬件限制（内存、处理能力、外设约束）；代码不能导致硬件故障；保障运行、测试、突发故障时的人员和设备安全。
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+### Performance Optimization
+性能优化
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+All performance-critical functions must be profiled and optimized; Measurement and verification of timing requirements must be conducted under all operating conditions.
+所有性能关键函数必须经过分析和优化；在所有操作条件下必须测量和验证时序要求。
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+### Safety-Critical Development
+安全关键开发
+
+All safety-critical code must undergo rigorous validation and verification processes; Design and implementation must follow safety standards appropriate for motor control applications.
+所有安全关键代码必须经过严格的验证和确认过程；设计和实现必须遵循适用于电机控制应用的安全标准。
+
+## Additional Constraints
+附加约束
+
+STM32G474xx microcontroller specific development:
+- Utilize hardware peripherals effectively (e.g., ADC, timers, PWM, FPU)
+- Optimize for real-time performance requirements
+- Follow STM32 HAL/LL driver best practices
+- Implement proper ADC sampling and conversion for motor feedback
+- Use hardware-based PWM generation for motor control signals
+- Implement motor control protection mechanisms (overcurrent, overtemperature, overvoltage)
+
+STM32G474xx微控制器特定开发：
+- 有效利用硬件外设（如ADC、定时器、PWM、FPU）
+- 针对实时性能要求进行优化
+- 遵循STM32 HAL/LL驱动最佳实践
+- 为电机反馈实施适当的ADC采样和转换
+- 使用硬件PWM生成电机控制信号
+- 实施电机控制保护机制（过流、过温、过压）
+
+## Development Workflow
+开发工作流程
+
+### Code Review Requirements
+代码审查要求
+
+- All timing-critical code must be reviewed with focus on performance impact
+- Safety-critical code must undergo pair programming or dual review
+- Hardware constraint compliance must be verified during review process
+
+- 所有定时关键代码必须审查，重点关注性能影响
+- 安全关键代码必须进行结对编程或双重审查
+- 在审查过程中必须验证硬件约束符合性
+
+### Testing Gates
+测试关口
+
+- Unit tests must validate timing behavior under normal and edge conditions
+- Integration tests must verify hardware interaction safety
+- System tests must confirm safety mechanisms function correctly
+
+- 单元测试必须在正常和边界条件下验证时序行为
+- 集成测试必须验证硬件交互安全性
+- 系统测试必须确认安全机制正常工作
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
+治理
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+All PRs/reviews must verify compliance with timing, safety, and hardware constraints; Complexity must be justified with performance and safety trade-off analysis; Use this constitution for STM32 motor control development guidance.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+所有PR/审查必须验证时序、安全和硬件约束的符合性；必须用性能和安全权衡分析来证明复杂性是合理的；使用本章程作为STM32电机控制开发指南。
+
+**Version**: 1.1.0 | **Ratified**: 2025-01-01 | **Last Amended**: 2025-10-17
+**版本**: 1.1.0 | **通过日期**: 2025-01-01 | **最后修订**: 2025-10-17
