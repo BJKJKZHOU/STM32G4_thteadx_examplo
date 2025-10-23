@@ -13,6 +13,7 @@
         "source=/dev,target=/dev,type=bind",
         "source=${localEnv:HOME}/.vscode,target=/home/developer/.vscode,type=bind"
     ],
+
     "customizations": {
         "vscode": {
             "settings": {
