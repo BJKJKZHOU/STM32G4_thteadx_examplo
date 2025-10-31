@@ -58,13 +58,26 @@ target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
 # Add sources to executable
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user sources here
-    config/
-    MotorControl/Inc
+
+    Core/Src/threads/thread_com.c
+
+    # Add Communication module sources
+    Communication/Src/Vofa.c
+    Communication/Src/Vofa_STM32G474.c
+    # Add MotorControl module sources
+    MotorControl/Src/PID_controller.c
+    MotorControl/Src/normalization.c
+
 )
 
 # Add include paths
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined include paths
+    Drivers/CMSIS/DSP/Include
+    Core/Inc/threads
+    config/
+    MotorControl/Inc
+    Communication/Inc
 )
 
 # Add project symbols (macros)
@@ -94,20 +107,3 @@ add_custom_command(
     COMMENT "显示固件大小信息"
 )
 
-# Add sources
-set(SOURCES
-    ${STARTUP_FILE} 
-    ${SYSTEM_FILE}
-    Core/Src/main.c
-    Core/Src/stm32g4xx_hal_msp.c
-    Core/Src/stm32g4xx_it.c
-    Core/Src/stm32g4xx_hal_timebase_tim.c
-    Core/Src/syscalls.c
-    Core/Src/sysmem.c
-    Core/Src/gpio.c
-    Core/Src/dma.c
-    Core/Src/usart.c
-    Core/Src/tim.c
-    Core/Src/cordic.c
-    Core/Src/ccmram.c  # Add CCMRAM support
-)

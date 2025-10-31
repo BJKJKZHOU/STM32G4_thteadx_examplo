@@ -184,7 +184,12 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     HAL_IncTick();
   }
   /* USER CODE BEGIN Callback 1 */
-
+  
+  /* 检查是否为TIM2中断，释放信号量通知线程发送数据 */
+  if (htim->Instance == TIM2) {
+    tx_semaphore_put(&tx_tim2_semaphore);
+  }
+  
   /* USER CODE END Callback 1 */
 }
 

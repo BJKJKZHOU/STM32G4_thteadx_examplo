@@ -27,6 +27,7 @@ extern "C" {
 #endif
 /* Includes ------------------------------------------------------------------*/
 #include "tx_api.h"
+#include "tim.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -76,6 +77,15 @@ UINT App_ThreadX_Init(VOID *memory_ptr);
 void MX_ThreadX_Init(void);
 void tx_app_thread_entry(ULONG thread_input);
 /* USER CODE BEGIN EFP */
+
+/* TIM2信号量定义 */
+extern TX_SEMAPHORE tx_tim2_semaphore;
+
+/* 信号量创建函数声明 */
+UINT App_Tim2_Semaphore_Create(void);
+
+/* TIM2中断回调函数声明 */
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim);
 
 /* USER CODE END EFP */
 

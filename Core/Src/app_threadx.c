@@ -23,7 +23,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "threads/thread_com.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -89,6 +89,13 @@ UINT App_ThreadX_Init(VOID *memory_ptr)
 
   /* USER CODE BEGIN App_ThreadX_Init */
 
+  /* 创建VOFA通讯线程 */
+  ret = vofa_thread_create(byte_pool);
+  if (ret != TX_SUCCESS)
+  {
+    return ret;
+  }
+
   /* USER CODE END App_ThreadX_Init */
 
   return ret;
@@ -101,9 +108,15 @@ UINT App_ThreadX_Init(VOID *memory_ptr)
 void tx_app_thread_entry(ULONG thread_input)
 {
   /* USER CODE BEGIN tx_app_thread_entry */
-
-
-
+  
+  // 主应用线程可以用于其他系统管理任务
+  // VOFA通讯功能已迁移到独立的thread_com模块
+  
+  while(1)
+  {
+    // 主线程可以执行其他系统管理任务
+    tx_thread_sleep(100); // 延时100个tick
+  }
   
   /* USER CODE END tx_app_thread_entry */
 }

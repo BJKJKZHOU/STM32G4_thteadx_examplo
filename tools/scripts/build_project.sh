@@ -17,21 +17,28 @@ fi
 
 cd ${PROJECT_ROOT}
 
-# 清理并创建构建目录
-rm -rf ${BUILD_DIR}
-mkdir -p ${BUILD_DIR}
-cd ${BUILD_DIR}
+# 检查是否需要重新配置CMake
+if [ ! -d "${BUILD_DIR}" ] || [ ! -f "${BUILD_DIR}/build.ninja" ]; then
+    echo "首次构建或构建目录不存在，执行完整配置..."
+    # 清理并创建构建目录
+    rm -rf ${BUILD_DIR}
+    mkdir -p ${BUILD_DIR}
+    cd ${BUILD_DIR}
+    
+    # 配置CMake - 使用正确的工具链文件路径
+    cmake -G "Ninja" \
+        -DCMAKE_BUILD_TYPE=Debug \
+        -DCMAKE_TOOLCHAIN_FILE=${PROJECT_ROOT}/cmake/gcc-arm-none-eabi.cmake \
+        -DTHREADX_ROOT=/opt/threadx \
+        -DSTM32CUBEG4_DIR=/opt/STM32CubeG4 \
+        -DCMAKE_TRY_COMPILE_TARGET_TYPE=STATIC_LIBRARY \
+        ${PROJECT_ROOT}
+else
+    echo "使用现有构建配置，执行增量编译..."
+    cd ${BUILD_DIR}
+fi
 
-# 配置CMake - 使用正确的工具链文件路径
-cmake -G "Ninja" \
-    -DCMAKE_BUILD_TYPE=Debug \
-    -DCMAKE_TOOLCHAIN_FILE=${PROJECT_ROOT}/cmake/gcc-arm-none-eabi.cmake \
-    -DTHREADX_ROOT=/opt/threadx \
-    -DSTM32CUBEG4_DIR=/opt/STM32CubeG4 \
-    -DCMAKE_TRY_COMPILE_TARGET_TYPE=STATIC_LIBRARY \
-    ${PROJECT_ROOT}
-
-# 构建项目
+# 构建项目 - 使用增量编译
 ninja
 
 if [ $? -eq 0 ]; then
