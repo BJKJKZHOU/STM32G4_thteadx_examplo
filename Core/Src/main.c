@@ -186,7 +186,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   }
   /* USER CODE BEGIN Callback 1 */
   
-  /* 查询是否为TIM2中断，释放信号量通知线程发送数据 */
+  /* 查询是否为TIM2中断，释放信号量通知线程发�?�数�? */
   if (htim->Instance == TIM2) {
     tx_semaphore_put(&vofa_timer_semaphore);
   }
