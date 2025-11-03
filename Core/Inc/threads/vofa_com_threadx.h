@@ -1,9 +1,9 @@
 /* USER CODE BEGIN Header */
 /**
   ******************************************************************************
-  * @file    app_threadx.h
+  * @file    vofa_com_threadx.h
   * @author  MCD Application Team
-  * @brief   ThreadX applicative header file
+  * @brief   VOFA communication thread header file
   ******************************************************************************
   * @attention
   *
@@ -19,17 +19,19 @@
 /* USER CODE END Header */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __APP_THREADX_H__
-#define __APP_THREADX_H__
+#ifndef __VOFA_COM_THREADX_H__
+#define __VOFA_COM_THREADX_H__
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 /* Includes ------------------------------------------------------------------*/
 #include "tx_api.h"
-
+#include "tim.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+
+#include "Vofa_STM32G474.h"
 
 /* USER CODE END Includes */
 
@@ -44,22 +46,22 @@ extern "C" {
 /* USER CODE END EC */
 
 /* Private defines -----------------------------------------------------------*/
-#define TX_APP_STACK_SIZE                       512
-#define TX_APP_THREAD_PRIO                      10
+#define VOFA_COM_STACK_SIZE                     1024
+#define VOFA_COM_THREAD_PRIO                    8
 /* USER CODE BEGIN PD */
 
 /* USER CODE END PD */
 
-/* Main thread defines -------------------------------------------------------*/
-#ifndef TX_APP_THREAD_PREEMPTION_THRESHOLD
-#define TX_APP_THREAD_PREEMPTION_THRESHOLD      TX_APP_THREAD_PRIO
+/* VOFA communication thread defines ----------------------------------------*/
+#ifndef VOFA_COM_THREAD_PREEMPTION_THRESHOLD
+#define VOFA_COM_THREAD_PREEMPTION_THRESHOLD    VOFA_COM_THREAD_PRIO
 #endif
 
-#ifndef TX_APP_THREAD_TIME_SLICE
-#define TX_APP_THREAD_TIME_SLICE                TX_NO_TIME_SLICE
+#ifndef VOFA_COM_THREAD_TIME_SLICE
+#define VOFA_COM_THREAD_TIME_SLICE              TX_NO_TIME_SLICE
 #endif
-#ifndef TX_APP_THREAD_AUTO_START
-#define TX_APP_THREAD_AUTO_START                TX_AUTO_START
+#ifndef VOFA_COM_THREAD_AUTO_START
+#define VOFA_COM_THREAD_AUTO_START              TX_AUTO_START
 #endif
 /* USER CODE BEGIN MTD */
 
@@ -72,18 +74,20 @@ extern "C" {
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/
-UINT App_ThreadX_Init(VOID *memory_ptr);
-void MX_ThreadX_Init(void);
-void tx_app_thread_entry(ULONG thread_input);
+UINT VOFA_Com_ThreadX_Init(VOID *memory_ptr);
+void vofa_com_thread_entry(ULONG thread_input);
 /* USER CODE BEGIN EFP */
 
 /* USER CODE END EFP */
 
 /* USER CODE BEGIN 1 */
 
+/* 信号量相关定义 */
+extern TX_SEMAPHORE vofa_timer_semaphore;
+
 /* USER CODE END 1 */
 
 #ifdef __cplusplus
 }
 #endif
-#endif /* __APP_THREADX_H__ */
+#endif /* __VOFA_COM_THREADX_H__ */
